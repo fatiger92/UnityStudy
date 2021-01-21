@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RayScript : MonoBehaviour
+public class RaycastAllScript : MonoBehaviour
 {
-    RaycastHit hit;
-    float MaxDistance = 15f; //Ray의 거리(길이)
+    RaycastHit[] hits;
+    float MaxDistance = 25f;
 
     void Update()
     {
@@ -22,9 +22,18 @@ public class RayScript : MonoBehaviour
         {
             Debug.DrawRay(transform.position, transform.forward * MaxDistance, Color.blue, 0.3f);
 
-            if (Physics.Raycast(transform.position, transform.forward, out hit, MaxDistance))
+            hits = Physics.RaycastAll(transform.position, transform.forward, MaxDistance);
+
+            for (int i = 0; i < hits.Length; i++)
             {
-                hit.transform.GetComponent<MeshRenderer>().material.color = Color.white; // 큐브색 변경
+                RaycastHit hit = hits[i];
+
+                MeshRenderer ChangeColor = hit.transform.GetComponent<MeshRenderer>();
+
+                if (ChangeColor)
+                {
+                    hit.transform.GetComponent<MeshRenderer>().material.color = Color.white;
+                }
             }
         }
     }
