@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody playerRigid; // 이동에 사용할 리지드 바디 컴포넌트
+    Rigidbody playerRigid; // 이동에 사용할 리지드 바디 컴포넌트
     public float speed = 8f; // 이동 속력
+
+    private void Start()
+    {
+        // 게임 오브젝트에서 Rigidbody 컴포넌트를 찾아 playerRigidbody에 할당
+        playerRigid = GetComponent<Rigidbody>();
+    }
 
     void Update()
     {
